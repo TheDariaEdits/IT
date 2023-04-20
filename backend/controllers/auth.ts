@@ -32,7 +32,11 @@ const postLogin = async (req:any, res:any) => {
     if (userDoc) {
         const matchedPwd = bcrypt.compareSync(password, userDoc.password)
         if(matchedPwd) {
-            jwt.sign({email: userDoc.email, id: userDoc._id}, process.env.JWT_SECRET, {}, (err, token) => {
+            jwt.sign({
+                email: userDoc.email, 
+                id: userDoc._id, 
+                name: userDoc.name
+            }, process.env.JWT_SECRET, {}, (err, token) => {
                 if(err) throw err
                 res.cookie('token', token).json(userDoc)
             })
