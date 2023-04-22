@@ -19,17 +19,17 @@ const getMain = (req:any, res:any ) => {
 const getProfile = (req:any, res:any ) => {
     const {token} = req.cookies
     if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+        jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData: JwtPayload) => {
             if(err) throw err
-            // const {name,email,_id} = await User.findById(userData.id)
-            // res.json({name,email,_id})
-            res.json(userData)
+            const {name,email,_id} = await User.findById(userData.id)
+            res.json({name,email,_id})
         })
     }else {
         res.json(null)
     }
     res.json({token})
-}
+    
+} /*this sends more than one response and needs to be fixed*/
 
 //@desc Profile 
 //@route GET /profile
