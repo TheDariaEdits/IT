@@ -27,7 +27,7 @@ const getProfile = (req:any, res:any ) => {
     }else {
         res.json(null)
     }
-    res.json({token})
+    // res.json({token})
     
 } /*this sends more than one response and needs to be fixed*/
 
