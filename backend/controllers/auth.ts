@@ -48,7 +48,15 @@ const postLogin = async (req:any, res:any) => {
     }
 }
 
+//@desc Logout user
+//@route POST /auth/logout
+//@access Public
+const postLogout = async (req:any, res:any) => {
+    res.cookie('token', '').json(true)
+}
+
 module.exports = {
     postRegister,
-    postLogin
+    postLogin,
+    postLogout
 }

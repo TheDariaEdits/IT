@@ -28,8 +28,8 @@ function App() {
 
         <Route path='dash' element={<DashLayout />}>
           <Route index element={<Home />}/>
-          <Route path='account' element={<Account />}/>
-          
+          <Route path='account/:subpage?' element={<Account />}/>
+
 
         </Route>{/* End Dash */}
 
