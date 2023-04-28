@@ -1,14 +1,6 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react"
 import axios from "axios"
 
-type User = {
-    _v?: number;
-    _id?: string;
-    email?: string;
-    name?: string;
-    password?: string;
-}
-
 export interface UserContextInterface {
     user: any;
     ready: boolean;

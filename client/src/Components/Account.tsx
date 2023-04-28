@@ -13,10 +13,10 @@ const Account = () => {
     subpage = 'profile'
   }
 
-  async function logout() {
+  async function logout(this: any) {
     await axios.post('/auth/logout')
     setRedirect('/')
-    setUser(null)
+    this.setUser(null)
   }
 
   if(!ready) {
