@@ -1,9 +1,9 @@
 import mongoose, { Schema } from "mongoose"
 
 const companySchema = new Schema({
+    owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     company: {type:String, required:true},
     address: {type:String, unique:true, required:true},
-    photos: {type:[String]},
     about: {type:String, required:true},
     services: [{
         service: {type: String, required: true},
@@ -17,7 +17,9 @@ const companySchema = new Schema({
           end: {type: Date, required: true}
           }]
         }],
-        extrainfo: {type:[String]},
+    extrainfo: {type:[String]},
+    photos: {type:[String]},
+    active: {type:Boolean, default: true ,required: true}
 })
 
 const CompanyModel = mongoose.model('Company', companySchema)

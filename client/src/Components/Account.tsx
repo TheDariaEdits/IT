@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { UserContext } from "../UserContext"
 import { Link, Navigate, useParams } from "react-router-dom"
 import axios from "axios"
+import Companies from "./Companies"
 
 
 const Account = () => {
@@ -43,9 +44,9 @@ const Account = () => {
   return (
     <div>
       <nav className='w-full flex justify-center mt-8 mb-8 gap-2'>
-      <Link className={linkClasses('profile')}  to={'/dash/account'}>My Profile</Link>
+        <Link className={linkClasses('profile')}  to={'/dash/account'}>My Profile</Link>
         <Link className={linkClasses('bookings')} to={'/dash/account/bookings'}>My Bookings</Link>
-        <Link className={linkClasses('places')} to={'/dash/account/places'}>My Places</Link>
+        <Link className={linkClasses('companies')} to={'/dash/account/companies'}>My Companies</Link>
       </nav>
       {subpage === 'profile' && (
         <div className='text-center max-w-m mx-auto'>
@@ -53,6 +54,7 @@ const Account = () => {
           <button onClick={logout} className='primary max-w-sm mt-2'>Logout</button>
         </div>
       )}
+      {subpage === 'companies' && (<Companies/>)}
     </div>
   )
 }
