@@ -8,4 +8,7 @@ router.route('/')
 router.route('/profile')
     .get(mainController.getProfile)
 
+router.route('/upload-by-link')
+    .post(mainController.postPhotos)
+
 module.exports = router

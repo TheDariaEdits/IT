@@ -13,9 +13,9 @@ const companySchema = new Schema({
     businesshours: [{
         day: {type: Date, required: true}, //mon - sun
         periods: [{
-          start: {type: Date, required: true},
-          end: {type: Date, required: true}
-          }]
+          start: {type: Date},
+          end: {type: Date}
+          } || {type:String}]
         }],
     extrainfo: {type:[String]},
     photos: {type:[String]},

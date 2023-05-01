@@ -1,5 +1,6 @@
 import jsonwebtoken, { JwtPayload } from 'jsonwebtoken'
 const User = require('../models/User')
+const download = require('image-downloader')
 
 const jwt = jsonwebtoken
 
@@ -16,6 +17,9 @@ const getMain = (req:any, res:any ) => {
     res.send('Hello World')
 }
 
+//@desc Profile 
+//@route GET /profile
+//@access Private
 const getProfile = (req:any, res:any ) => {
     const {token} = req.cookies
     if (token) {
@@ -29,10 +33,21 @@ const getProfile = (req:any, res:any ) => {
     }
 }
 
-//@desc Profile 
-//@route GET /profile
+//@desc Upload Photo
+//@route POST /upload-by-link
 //@access Private
+const postPhotos = async (req:any, res:any ) => {
+    const {link} = req.body
+    const newName = Date.now() + '.jpg'
+    await download.image({
+        url: link,
+        dest: __dirname + '/uploads' + newName
+    })
+    res.json(newName)
+}
+
 module.exports = {
     getMain,
-    getProfile
+    getProfile,
+    postPhotos
 }
