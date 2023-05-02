@@ -12,9 +12,9 @@ const Companies = () => {
     services: {},
     businesshours: {},
     extrainfo: '',
-    photos: []
   })
   const [photoLink, setPhotoLink] = useState('')
+  const [addedPhotos, setAddedPhotos] = useState<any[]>([])
 
   const handleChange = (e:any) => {
     const name = e.target.name
@@ -26,7 +26,11 @@ const Companies = () => {
 
   async function addPhotoByLink(ev:any) {
     ev.preventDefault()
-    await axios.post('/upload-by-link', {link: photoLink})
+    const {data:filename} = await axios.post('/upload-by-link', {link: photoLink})
+    setAddedPhotos((prev) => {
+      return [...prev, filename]
+    })
+    setPhotoLink('')
   }
 
   return (
@@ -52,7 +56,11 @@ const Companies = () => {
               <input type='text' name= 'photoLink' placeholder='Add using link' onChange={ev => setPhotoLink(ev.target.value)}/>
               <button className='bg-primary text-white px-4 rounded-2xl' onClick={addPhotoByLink}>Add photos</button>
             </div>
-            <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
+            <div className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
+              {addedPhotos.length > 0 && addedPhotos.map((link:string) => 
+              <div>
+                <img className='rounded-2xl' src={'http://localhost:4000/uploads/' + link} alt="" />
+              </div>)}
               <button className='border bg-transparent rounded-2xl p-8 text-2xl' name='photos' onChange={handleChange}>+</button>
             </div>
             <div>
