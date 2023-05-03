@@ -33,6 +33,22 @@ const Companies = () => {
     setPhotoLink('')
   }
 
+  function uploadPhoto(e: any) {
+    const files = e.target.files
+    const data = new FormData()
+    for (let i = 0; i < files.length; i++){
+      data.append('photos', files[i])
+    }
+    axios.post('/upload', data, {
+      headers: {'Content-Type': 'multipart/form-data'}
+    }).then(res => {
+      const {data:filename} = res
+      setAddedPhotos((prev) => {
+        return [...prev, filename]
+      })
+    })
+  }
+
   return (
     <div>
         {action !== 'new' && (
@@ -56,12 +72,16 @@ const Companies = () => {
               <input type='text' name= 'photoLink' placeholder='Add using link' onChange={ev => setPhotoLink(ev.target.value)}/>
               <button className='bg-primary text-white px-4 rounded-2xl' onClick={addPhotoByLink}>Add photos</button>
             </div>
+            
             <div className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
               {addedPhotos.length > 0 && addedPhotos.map((link:string) => 
               <div>
                 <img className='rounded-2xl' src={'http://localhost:4000/uploads/' + link} alt="" />
               </div>)}
-              <button className='border bg-transparent rounded-2xl p-8 text-2xl' name='photos' onChange={handleChange}>+</button>
+              <label className='cursor-pointer border bg-transparent rounded-2xl p-8 text-2xl' name='photos' onChange={handleChange}>
+              <input type='file' className='hidden' onChange={uploadPhoto}/>
+              +
+              </label>
             </div>
             <div>
               <h2 className='text-2xl mt-4'>Add Services</h2>

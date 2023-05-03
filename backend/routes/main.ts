@@ -11,4 +11,7 @@ router.route('/profile')
 router.route('/upload-by-link')
     .post(mainController.postPhotos)
 
+router.route('/upload')
+    .post(mainController.postDevicePhotos)
+
 module.exports = router

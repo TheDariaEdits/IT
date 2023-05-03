@@ -1,15 +1,8 @@
 import jsonwebtoken, { JwtPayload } from 'jsonwebtoken'
 const User = require('../models/User')
 const download = require('image-downloader')
+const multer  = require('multer')
 
-
-const jwt = jsonwebtoken
-
-declare module "jsonwebtoken" {
-    export interface JwtPayload {
-        id: string;
-    }
-}
 
 //@desc Main Page
 //@route GET /
@@ -21,6 +14,14 @@ const getMain = (req:any, res:any ) => {
 //@desc Profile 
 //@route GET /profile
 //@access Private
+const jwt = jsonwebtoken
+
+declare module "jsonwebtoken" {
+    export interface JwtPayload {
+        id: string;
+    }
+}
+
 const getProfile = (req:any, res:any ) => {
     const {token} = req.cookies
     if (token) {
@@ -34,7 +35,7 @@ const getProfile = (req:any, res:any ) => {
     }
 }
 
-//@desc Upload Photo
+//@desc Upload Photo by Link
 //@route POST /upload-by-link
 //@access Private
 const postPhotos = async (req:any, res:any ) => {
@@ -47,8 +48,19 @@ const postPhotos = async (req:any, res:any ) => {
     res.json(newName)
 }
 
+//@desc Upload Photo from Device
+//@route POST /upload
+//@access Private
+const photoMiddleware = multer({dest: 'uploads'})
+
+const postDevicePhotos = (req:any, res:any, next:any) => {
+    photoMiddleware.array('photos', 100)
+    .then(res.json(req.photos))
+}
+
 module.exports = {
     getMain,
     getProfile,
-    postPhotos
+    postPhotos,
+    postDevicePhotos
 }
