@@ -1,6 +1,7 @@
 import jsonwebtoken, { JwtPayload } from 'jsonwebtoken'
 const User = require('../models/User')
 const download = require('image-downloader')
+const fs = require('fs')
 
 
 //@desc Main Page
@@ -51,7 +52,16 @@ const postPhotos = async (req:any, res:any ) => {
 //@route POST /upload
 //@access Private
 const postDevicePhotos = (req:any, res:any) => {
-    res.json(req.files)
+    const uploadedFiles = []
+    for (let i = 0; i < req.files.length; i++){
+        const {path, originalname} = req.files[i]
+        const parts = originalname.split('.')
+        const ext = parts[parts.length - 1]
+        const newPath = path + '.' + ext
+        fs.renameSync(path, newPath)
+        uploadedFiles.push(newPath.replace('uploads/', ''))
+    }
+    res.json(uploadedFiles)
 }
 
 module.exports = {

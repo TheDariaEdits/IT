@@ -42,9 +42,9 @@ const Companies = () => {
     axios.post('/upload', data, {
       headers: {'Content-Type': 'multipart/form-data'}
     }).then(res => {
-      const {data:filename} = res
+      const {data:filenames} = res
       setAddedPhotos((prev) => {
-        return [...prev, filename]
+        return [...prev, ...filenames]
       })
     })
   }
@@ -75,10 +75,10 @@ const Companies = () => {
             
             <div className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
               {addedPhotos.length > 0 && addedPhotos.map((link:string) => 
-              <div>
+              <div className='h-32'>
                 <img className='rounded-2xl' src={'http://localhost:4000/uploads/' + link} alt="" />
               </div>)}
-              <label className='cursor-pointer border bg-transparent rounded-2xl p-8 text-2xl'>
+              <label className='h-32 cursor-pointer border bg-transparent rounded-2xl p-8 text-2xl'>
               <input type='file' multiple className='hidden' onChange={uploadPhoto}/>
               +
               </label>
