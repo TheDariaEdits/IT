@@ -78,8 +78,8 @@ const Companies = () => {
               <div>
                 <img className='rounded-2xl' src={'http://localhost:4000/uploads/' + link} alt="" />
               </div>)}
-              <label className='cursor-pointer border bg-transparent rounded-2xl p-8 text-2xl' name='photos' onChange={handleChange}>
-              <input type='file' className='hidden' onChange={uploadPhoto}/>
+              <label className='cursor-pointer border bg-transparent rounded-2xl p-8 text-2xl'>
+              <input type='file' multiple className='hidden' onChange={uploadPhoto}/>
               +
               </label>
             </div>

@@ -1,7 +1,6 @@
 import jsonwebtoken, { JwtPayload } from 'jsonwebtoken'
 const User = require('../models/User')
 const download = require('image-downloader')
-const multer  = require('multer')
 
 
 //@desc Main Page
@@ -51,11 +50,8 @@ const postPhotos = async (req:any, res:any ) => {
 //@desc Upload Photo from Device
 //@route POST /upload
 //@access Private
-const photoMiddleware = multer({dest: 'uploads'})
-
-const postDevicePhotos = (req:any, res:any, next:any) => {
-    photoMiddleware.array('photos', 100)
-    .then(res.json(req.photos))
+const postDevicePhotos = (req:any, res:any) => {
+    res.json(req.files)
 }
 
 module.exports = {
