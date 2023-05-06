@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import BusinessHours from './BusinessHours'
 
 
 const Companies = () => {
@@ -93,24 +94,7 @@ const Companies = () => {
               <input type='text' placeholder='description: optional'/>
             </div>
             <h2 className='text-2xl mt-4'>Business Hours</h2>
-            <div className='grid sm:grid-cols-4 gap-6'>
-              <div className=''>
-                <h3>Day</h3>
-                <input type="text" defaultValue={'Sunday'} readOnly={true}/>
-              </div>
-              <div>
-                <h3>Open</h3>
-                <input type='time' />
-              </div>
-              <div>
-                <h3>Close</h3>
-                <input type='time' />
-              </div>
-              <div className='r'>
-                <h3>Closed</h3>
-                <input type='checkbox' value={'Closed'}/>
-              </div>
-            </div>
+            <BusinessHours/>
           </form>
           <div>
             <button className='primary my-4'>Save</button>
