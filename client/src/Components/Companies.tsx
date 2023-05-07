@@ -26,6 +26,12 @@ const Companies = () => {
     })
   }
 
+  // function addNewPlace(e:any) {
+  //   e.preventDefault()
+  //   const data = {}
+  //   axios.post('/companies', data)
+  // }
+
   return (
     <div>
         {action !== 'new' && (

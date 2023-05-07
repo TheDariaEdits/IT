@@ -11,11 +11,9 @@ const companySchema = new Schema({
         description: {type: String}
         }],
     businesshours: [{
-        day: {type: Date, required: true}, //mon - sun
-        periods: [{
-          start: {type: Date},
-          end: {type: Date}
-          } || {type:String}]
+        day: {type: Number, min:1, max:7, required: true}, //mon - sun
+        start: {type: String, required:true},
+        end: {type: String, required:true}
         }],
     extrainfo: {type:[String]},
     photos: {type:[String]},
