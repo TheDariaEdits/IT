@@ -11,9 +11,10 @@ const Companies = () => {
     address: '',
     about: '',
     services: {},
-    businesshours: {},
     extrainfo: '',
   })
+
+  const [businesshours, setBusinessHours] = useState('')
   const [photoLink, setPhotoLink] = useState('')
   const [addedPhotos, setAddedPhotos] = useState<any[]>([])
 
@@ -64,6 +65,7 @@ const Companies = () => {
             <input type='text' placeholder='company' name='company' onChange={handleChange}/>
             <h2 className='text-2xl mt-4'>Address</h2>
             <input type='text' placeholder='address' name='address' onChange={handleChange}/>
+            {/* add autocomplete w/ google maps api https://www.tracylum.com/blog/2017-05-20-autocomplete-an-address-with-a-react-form/ */}
             <h2 className='text-2xl mt-4'>About</h2>
             <textarea placeholder='Tell us about your company' name='about' onChange={handleChange}/>
             <h2 className='text-2xl mt-4'>Extra Info</h2>
@@ -76,16 +78,20 @@ const Companies = () => {
             
             <div className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
               {addedPhotos.length > 0 && addedPhotos.map((link:string) => 
-              <div className='h-32'>
+              <div className='h-32' key={link}>
                 <img className='rounded-2xl' src={'http://localhost:4000/uploads/' + link} alt="" />
               </div>)}
-              <label className='h-32 cursor-pointer border bg-transparent rounded-2xl p-8 text-2xl'>
+              <label className='h-32 flex cursor-pointer border bg-transparent rounded-2xl gap-1 p-8 text-2xl items-center'>
               <input type='file' multiple className='hidden' onChange={uploadPhoto}/>
-              +
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+              </svg>
+              Upload
               </label>
             </div>
             <div>
               <h2 className='text-2xl mt-4'>Add Services</h2>
+              {/* add button to dynamically add more input fields so you can add all the services, also do a drop down menu w/ common services w/ an other option  */}
               <div className='flex'>
                 <input type='text' placeholder='service name'/>
                 <label className='flex mx-8'>$
@@ -94,7 +100,7 @@ const Companies = () => {
               <input type='text' placeholder='description: optional'/>
             </div>
             <h2 className='text-2xl mt-4'>Business Hours</h2>
-            <BusinessHours/>
+            <BusinessHours openDays={businesshours} onChange={setBusinessHours}/>
           </form>
           <div>
             <button className='primary my-4'>Save</button>
