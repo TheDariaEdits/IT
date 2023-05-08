@@ -16,7 +16,8 @@ const Companies = () => {
   })
 
   const [addedPhotos, setAddedPhotos] = useState<any[]>([])
-  const [businesshours, setBusinessHours] = useState('')
+  const [hours, setHrs] = useState('')
+ 
 
   const handleChange = (e:any) => {
     const name = e.target.name
@@ -64,7 +65,9 @@ const Companies = () => {
               <input type='text' placeholder='description: optional'/>
             </div>
             <h2 className='text-2xl mt-4'>Business Hours</h2>
-            <BusinessHours openDays={businesshours} onChange={setBusinessHours}/>
+            <BusinessHours 
+            hours={hours} setHrs={setHrs}
+            />
           </form>
           <div>
             <button className='primary my-4'>Save</button>
