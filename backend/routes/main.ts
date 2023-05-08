@@ -16,4 +16,7 @@ const photoMiddleware = multer({dest: 'uploads'})
 router.route('/upload')
     .post(photoMiddleware.array('photos', 100), mainController.postDevicePhotos)
 
+router.route('/companies')
+    .post(mainController.postCompanies)
+
 module.exports = router

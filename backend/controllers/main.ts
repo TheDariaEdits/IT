@@ -1,5 +1,7 @@
 import jsonwebtoken, { JwtPayload } from 'jsonwebtoken'
+import mongoose from 'mongoose'
 const User = require('../models/User')
+const Company = require('../models/Company')
 const download = require('image-downloader')
 const fs = require('fs')
 
@@ -64,9 +66,46 @@ const postDevicePhotos = (req:any, res:any) => {
     res.json(uploadedFiles)
 }
 
+//@desc Add new company
+//@route POST /companies
+//@access Private
+const postCompanies = (req:any, res:any ) => {
+    mongoose.connect(process.env.MONGO_URL)
+    const {token} = req.cookies
+    const {details,addedPhotos,hours} = req.body
+    jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData: JwtPayload) => {
+        if (err) throw err
+        const companyDoc = await Company.create({
+          owner:userData.id,
+          company: details.companies,
+          address: details.address,
+          about: details.about,
+          services: details.services,
+          businesshours: hours,
+          extrainfo: details.extrainfo,
+          photos: addedPhotos
+        })
+        res.json(companyDoc) 
+      });
+}
+
+
+
+//     services: [{
+//         service: {type: String, required: true},
+//         price: {type: Number, required: true},
+//         description: {type: String}
+//         }],
+//     businesshours: [{
+//         day: {type: Number, min:1, max:7, required: true}, //mon - sun
+//         start: {type: String, required:true},
+//         end: {type: String, required:true}
+//         }],
+
 module.exports = {
     getMain,
     getProfile,
     postPhotos,
-    postDevicePhotos
+    postDevicePhotos,
+    postCompanies
 }

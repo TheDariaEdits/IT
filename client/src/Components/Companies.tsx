@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import BusinessHours from './BusinessHours'
 import PhotoUploader from './PhotoUploader'
 
@@ -14,9 +14,9 @@ const Companies = () => {
     services: {},
     extrainfo: '',
   })
-
   const [addedPhotos, setAddedPhotos] = useState<any[]>([])
   const [hours, setHrs] = useState('')
+  const [redirect, setRedirect] = useState('')
  
 
   const handleChange = (e:any) => {
@@ -27,11 +27,15 @@ const Companies = () => {
     })
   }
 
-  // function addNewPlace(e:any) {
-  //   e.preventDefault()
-  //   const data = {}
-  //   axios.post('/companies', data)
-  // }
+  async function addNewPlace(e:any) {
+    e.preventDefault()
+    await axios.post('/companies', {details, addedPhotos, hours})
+    setRedirect('/dash/account/companies')
+  }
+
+  if(redirect) {
+    return <Navigate to={redirect}/>
+  }
 
   return (
     <div>
@@ -42,12 +46,11 @@ const Companies = () => {
         )}
       {action === 'new' && (
         <div className='text-left'>
-          <form>
+          <form onSubmit={addNewPlace}>
             <h2 className='text-2xl mt-4'>Company</h2>
             <input type='text' placeholder='company' name='company' onChange={handleChange}/>
             <h2 className='text-2xl mt-4'>Address</h2>
             <input type='text' placeholder='address' name='address' onChange={handleChange}/>
-            {/* add autocomplete w/ google maps api https://www.tracylum.com/blog/2017-05-20-autocomplete-an-address-with-a-react-form/ */}
             <h2 className='text-2xl mt-4'>About</h2>
             <textarea placeholder='Tell us about your company' name='about' onChange={handleChange}/>
             <h2 className='text-2xl mt-4'>Extra Info</h2>
