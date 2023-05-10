@@ -70,13 +70,12 @@ const postDevicePhotos = (req:any, res:any) => {
 //@route POST /companies
 //@access Private
 const postCompanies = (req:any, res:any ) => {
-    mongoose.connect(process.env.MONGO_URL)
     const {token} = req.cookies
-    const {details,addedPhotos,hours} = req.body
+    const {details, addedPhotos, hours} = req.body
     jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData: JwtPayload) => {
         if (err) throw err
         const companyDoc = await Company.create({
-          owner:userData.id,
+          owner: userData.id,
           company: details.companies,
           address: details.address,
           about: details.about,

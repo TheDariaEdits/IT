@@ -6,7 +6,7 @@ const companySchema = new Schema({
     address: {type:String, unique:true, required:true},
     about: {type:String, required:true},
     services: [{
-        service: {type: String, required: true},
+        name: {type: String, required: true},
         price: {type: Number, required: true},
         description: {type: String}
         }],

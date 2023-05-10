@@ -15,6 +15,9 @@ const Companies = () => {
     extrainfo: '',
   })
   const [addedPhotos, setAddedPhotos] = useState<any[]>([])
+  const [serviceName, setServiceName] = useState('')
+  const [servicePrice, setServicePrice] = useState('')
+  const [serviceDesc, setServiceDesc] = useState('')
   const [hours, setHrs] = useState('')
   const [redirect, setRedirect] = useState('')
  
@@ -27,7 +30,11 @@ const Companies = () => {
     })
   }
 
-  async function addNewPlace(e:any) {
+  const setServices = (e: any) => {
+    
+  }
+
+  async function addNewCompany(e:any) {
     e.preventDefault()
     await axios.post('/companies', {details, addedPhotos, hours})
     setRedirect('/dash/account/companies')
@@ -46,7 +53,7 @@ const Companies = () => {
         )}
       {action === 'new' && (
         <div className='text-left'>
-          <form onSubmit={addNewPlace}>
+          <form onSubmit={addNewCompany}>
             <h2 className='text-2xl mt-4'>Company</h2>
             <input type='text' placeholder='company' name='company' onChange={handleChange}/>
             <h2 className='text-2xl mt-4'>Address</h2>
@@ -61,20 +68,20 @@ const Companies = () => {
               <h2 className='text-2xl mt-4'>Add Services</h2>
               {/* add button to dynamically add more input fields so you can add all the services, also do a drop down menu w/ common services w/ an other option  */}
               <div className='flex'>
-                <input type='text' placeholder='service name'/>
+                <input type='text' placeholder='service name' onChange={e => setServiceName(e.target.value)}/>
                 <label className='flex mx-8'>$
-                <input type='number' placeholder='0.00'/></label>
+                <input type='number' placeholder='0.00' onChange={e => setServicePrice(e.target.value)}/></label>
               </div>
-              <input type='text' placeholder='description: optional'/>
+              <input type='text' placeholder='description: optional' onChange={e => setServiceDesc(e.target.value)}/>
             </div>
             <h2 className='text-2xl mt-4'>Business Hours</h2>
             <BusinessHours 
             hours={hours} setHrs={setHrs}
             />
-          </form>
-          <div>
+            <div>
             <button className='primary my-4'>Save</button>
           </div>
+          </form>
         </div>
       )}
         
