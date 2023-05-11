@@ -11,10 +11,10 @@ const Companies = () => {
     company: '',
     address: '',
     about: '',
-    services: {},
     extrainfo: '',
   })
   const [addedPhotos, setAddedPhotos] = useState<any[]>([])
+  const [services, setServices] = useState({})
   const [serviceName, setServiceName] = useState('')
   const [servicePrice, setServicePrice] = useState('')
   const [serviceDesc, setServiceDesc] = useState('')
@@ -30,8 +30,8 @@ const Companies = () => {
     })
   }
 
-  const setServices = (e: any) => {
-    
+  const handleServices = (e: any) => {
+    setServices({...services, serviceName, servicePrice, serviceDesc})
   }
 
   async function addNewCompany(e:any) {
