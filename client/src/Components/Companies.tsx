@@ -65,7 +65,7 @@ const Companies = () => {
             <h2 className='text-2xl mt-4'>Photos</h2>
             <PhotoUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
             <div>
-              <h2 className='text-2xl mt-4'>Add Services</h2>
+              <h2 className='text-2xl mt-4' onChange={handleServices}>Add Services</h2>
               {/* add button to dynamically add more input fields so you can add all the services, also do a drop down menu w/ common services w/ an other option  */}
               <div className='flex'>
                 <input type='text' placeholder='service name' onChange={e => setServiceName(e.target.value)}/>
